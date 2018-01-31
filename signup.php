@@ -44,7 +44,9 @@
       $username = mysqli_real_escape_string($con,$username);
       $email = stripslashes($_REQUEST['email']);
       $email = mysqli_real_escape_string($con,$email);
+      // retrieve and hash the password
       $password = stripslashes($_REQUEST['password']);
+      $password = password_hash($password,PASSWORD_BCRYPT,$options);
       $password = mysqli_real_escape_string($con,$password);
       $reg_date = date("Y-m-d H:i:s");
 
@@ -56,7 +58,7 @@
         echo '<h3 class="error">Username or email address already in use.</h3><a href="javascript:history.back(-1);">Click here to try again</a></div></body></html>';
       }else {
 
-        $query = "INSERT into `users` (username, password, email, reg_date) VALUES ('$username', '".md5($password)."', '$email', '$reg_date')";
+        $query = "INSERT into `users` (username, password, email, reg_date) VALUES ('$username', '".$password."', '$email', '$reg_date')";
         $result = mysqli_query($con,$query);
         if($result){
           $query = "SELECT id, username FROM `users` WHERE email='$email'";
@@ -65,7 +67,8 @@
           $_SESSION['id'] = $row['id'];
           $_SESSION['username'] = $row['username'];
 
-          include('upload_img.php');
+          //if the user selected a picture, loads the script
+          if (isset($_REQUEST['imgToUpload'])) include('upload_img.php');
 
           echo "<h3>You are registered successfully.</h3><a href='login.php'>Click here to Login</a></div></body></html>";
         }
