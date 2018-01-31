@@ -1,5 +1,5 @@
 <?php
-//include auth.php file on all secure pages. it includes db.php
+//include auth. php file on all secure pages. it includes db.php
 include("auth.php");
 
 $target_dir = "uploads/";
@@ -7,7 +7,7 @@ $target_file = $target_dir . basename($_FILES["imgToUpload"]["name"]);
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 // Check if image file is a actual image or fake image
-if(isset($_POST["submit"])) {
+if(isset($_FILES)) {
   $check = getimagesize($_FILES["imgToUpload"]["tmp_name"]);
   if($check !== false) {
     // echo "File is an image - " . $check["mime"] . ".";
@@ -19,9 +19,9 @@ if(isset($_POST["submit"])) {
 
   // Check if file already exists
   $file_n = 0;
-  while (file_exists($target_dir . $_SESSION['id'] . "_" . $file_n . "." . $imageFileType))
+  while (file_exists($target_dir . $_SESSION['id'] . "_" . $file_n /*. "." . $imageFileType*/))
   $file_n++;
-  $target_file = $target_dir . $_SESSION['id'] . "_" . $file_n . "." . $imageFileType;
+  $target_file = $target_dir . $_SESSION['id'] . "_" . $file_n /*. "." . $imageFileType*/;
   // Check file size
   if ($_FILES["imgToUpload"]["size"] > 500000) {
     echo "<h3 class='error'>Sorry, your file is too large.</h3>";

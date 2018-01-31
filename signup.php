@@ -64,11 +64,13 @@
           $query = "SELECT id, username FROM `users` WHERE email='$email'";
           $result = mysqli_query($con,$query) or die(mysql_error());
           $row = mysqli_fetch_assoc($result);
+
+          session_start();
           $_SESSION['id'] = $row['id'];
           $_SESSION['username'] = $row['username'];
 
           //if the user selected a picture, loads the script
-          if (isset($_REQUEST['imgToUpload'])) include('upload_img.php');
+          if(isset($_FILES)) include('upload_img.php');
 
           echo "<h3>You are registered successfully.</h3><a href='login.php'>Click here to Login</a></div></body></html>";
         }
