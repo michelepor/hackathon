@@ -1,0 +1,2 @@
+- no secure Login
+- no resize for image files
