@@ -1,4 +1,6 @@
 <?php
+//include auth.php file on all secure pages. it includes db.php
+include("auth.php");
 
 $target_dir = "uploads/";
 $target_file = $target_dir . basename($_FILES["imgToUpload"]["name"]);
