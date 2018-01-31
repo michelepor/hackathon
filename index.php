@@ -57,9 +57,16 @@ $news_title = $news->channel->item[0]->title;
 </script>
 </head>
 <body>
+  <img id="user-photo" src="<?php
+    if (file_exists("uploads/".$_SESSION['id']."_0")) {
+        echo "uploads/".$_SESSION['id']."_0";
+    } else {
+        echo "img/default-user.png";
+    }
+  ?>">
   <div class="container">
     <h1>Good day <?php echo $_SESSION['username']; ?></h1>
-    <div class="row display-flex">
+    <div class="row">
       <div class="col-md-4">
         <div class="box">
           <h3>Weather</h3>

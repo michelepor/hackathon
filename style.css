@@ -11,6 +11,10 @@ body {
   font-size: xx-large;
 }
 
+img {
+  max-width: 100%;
+}
+
 .bottom {
   position: absolute;
   bottom: 0;
@@ -98,7 +102,15 @@ input[type='submit']:hover {
     margin-right: 0;
   }
 }
-
+#user-photo {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 10px;
+  width: 100px;
+  height: auto;
+  border: 2px solid #ffe65e;
+}
 .box {
   position: relative;
   background: url('img/white_bg.png');
@@ -106,7 +118,7 @@ input[type='submit']:hover {
   display: inline-block;
   width: 90%;
   margin: 20px;
-  height: 90%;
+  min-height: 260px;
   border: 3px solid #ffe65e;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
