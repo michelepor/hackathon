@@ -46,7 +46,7 @@
       $email = mysqli_real_escape_string($con,$email);
       // retrieve and hash the password
       $password = stripslashes($_REQUEST['password']);
-      $password = password_hash($password,PASSWORD_BCRYPT,$options);
+      $password = password_hash($password,PASSWORD_BCRYPT);
       $password = mysqli_real_escape_string($con,$password);
       $reg_date = date("Y-m-d H:i:s");
 
