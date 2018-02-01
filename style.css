@@ -13,6 +13,8 @@ body {
 
 img {
   max-width: 100%;
+  height: auto;
+  width: auto;
 }
 
 .bottom {
@@ -67,7 +69,9 @@ input[type='submit']:hover {
   cursor: pointer;
   z-index:10;
 }
-.image-upload > input { display: none; }
+.image-upload > #file-input { display: none; }
+.image-upload > .bottom-corner { position: absolute; bottom:0; right: 0; }
+
 
 .image-upload img {
   max-width: 80%;
@@ -113,6 +117,7 @@ input[type='submit']:hover {
 }
 .box {
   position: relative;
+  text-align: center;
   background: url('img/white_bg.png');
   color: #000;
   display: inline-block;
