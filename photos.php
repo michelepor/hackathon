@@ -1,6 +1,7 @@
 <?php
 //include auth.php file on all secure pages. it includes db.php
 include("auth.php");
+//if the user selected a picture, loads the script
 if(isset($_POST["submit"])) include("upload_img.php");
 ?>
 
@@ -30,23 +31,51 @@ if(isset($_POST["submit"])) include("upload_img.php");
 <body style="text-align:left;">
   <div class="container">
     <h1>Photos</h1>
-    <form name="registration" action="" method="post" enctype="multipart/form-data">
-      <input name="imgToUpload" type="file" accept="image/*" onchange="readURL(this)"/>
-      <input type="submit" name="submit" value="Upload picture" style="display:block;">
-    </form>
 
     <div class="row display-flex">
 
-      <?php
-      $path = './uploads/';
-      $files = glob($path. $_SESSION['id'] .'_*');
-      foreach ($files as $file)
-        echo   '<div class="col-md-4"><div class="box"><img src="'. $file.'"></div></div>';
-      ?>
+      <div class="col-md-4"><div class="box"><div class="image-upload centered">
+        <form action="" class="image-upload" method="post" enctype="multipart/form-data">
+          <label for="file-input">
+            <img class="centered" id="pic_preview" src="#" alt="Add picture" />
+          </label>
+          <input id="file-input" name="imgToUpload" type="file" accept="image/*" onchange="readURL(this)"/>
+          <input type="submit" name="submit" value="Upload" class="bottom-corner"></form>
+        </div></div></div>
 
+        <?php
+        $path = './uploads/';
+        $files = glob($path. $_SESSION['id'] .'_*');
+
+
+        if (isset($_GET['p'])) $offset = $_GET['p'];
+        else $offset = 1; //page
+
+        if (isset($_GET['q'])) $quantity = $_GET['q'];
+        else $quantity = 10; //number of items to display
+
+        if (count($files)>0) {
+          $pages = ((int) (count($files)/$quantity)) +1;
+
+          //get subset of file array
+          //       array_slice(array,  start,     length,   preserve)
+          $files = array_slice($files, ($offset-1)*$quantity, $quantity);
+        } else $pages = 1;
+
+        foreach ($files as $file)
+        echo   '<div class="col-md-4"><div class="box"><img src="'. $file.'"></div></div>';
+
+        for ($i = 1; $i <= $pages; $i++) {
+          if ($i==$offset) echo " <u>";
+          echo "<a href='?q=".$quantity."&p=".$i."'>".$i."</a> ";
+          if ($i==$offset) echo "</u>"; else echo " ";
+        }
+
+        ?>
+
+      </div>
+      <br>
+      <a style="float: right;" href="index.php">Back</a>
     </div>
-    <br>
-    <a style="float: right;" href="index.php">Back</a>
-  </div>
-</body>
-</html>
+  </body>
+  </html>
